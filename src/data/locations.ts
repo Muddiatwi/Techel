@@ -1,0 +1,1 @@
+export const locations=['København','Frederiksberg','Amager','Valby','Vanløse','Brønshøj','Hvidovre','Rødovre','Herlev','Ballerup','Glostrup','Albertslund','Ishøj','Taastrup','Lyngby','Gentofte','Søborg','Hellerup','Charlottenlund','Hørsholm','Farum']

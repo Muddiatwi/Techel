@@ -1,0 +1,30 @@
+import { Link } from 'react-router-dom'
+import { Home as H, Store, Building, Landmark } from 'lucide-react'
+import { company } from '../data/company'
+import { locations } from '../data/locations'
+import { reviews, reviewProfileUrl } from '../data/reviews'
+import { projects } from '../data/projects'
+export function Categories(){
+  const c=[[H,'Private boliger','Fejlfinding, eltavler, renovering, køkken og ladeboks til hjemmet.','/elrenovering'],[Store,'Erhverv og butikker','Installationer, service og fejlfinding, der holder driften kørende.','/erhverv'],[Building,'Boligforeninger og ejendomme','Fast elektriker til opgangsbelysning, dørtelefoni og vedligeholdelse.','/boligforeninger'],[Landmark,'Institutioner','Pålidelig elservice til offentlige og institutionelle bygninger.','/el-service']] as const
+  return <section className="bg-[var(--bg-soft)]"><div className="max-w-site mx-auto px-4 py-16"><h2 className="text-3xl font-bold mb-8">El-løsninger til alle typer kunder</h2>
+    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">{c.map(([I,t,d,h])=><Link key={t} to={h} className="bg-white p-6 border border-[var(--border)] rounded hover:shadow-lg transition"><I className="text-brand mb-3" size={32}/><h3 className="font-bold">{t}</h3><p className="text-sm mt-2">{d}</p></Link>)}</div></div></section>}
+export function ProjectTeaser(){
+  if(!projects.length)return null
+  return <section className="max-w-site mx-auto px-4 py-16"><h2 className="text-3xl font-bold mb-8">Se vores tidligere projekter</h2>
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">{projects.slice(0,3).map(p=><article key={p.id} className="border border-[var(--border)] rounded overflow-hidden"><img src={p.image} alt={p.alt} loading="lazy" className="h-56 w-full object-cover"/><div className="p-4"><p className="text-xs text-brand font-semibold">{p.categories.join(' · ')}</p><h3 className="font-bold">{p.title}</h3><p className="text-sm">{p.text}</p></div></article>)}</div>
+    <Link to="/projekter" className="btn btn-primary mt-8">Se alle projekter</Link></section>}
+export function Reviews(){
+  if(!reviews.length)return null
+  return <section className="bg-[var(--bg-soft)]"><div className="max-w-site mx-auto px-4 py-16"><h2 className="text-3xl font-bold mb-8">Det siger vores kunder</h2><div className="grid md:grid-cols-3 gap-6">{reviews.map(r=><blockquote key={r.author} className="bg-white p-6 rounded"><p>{r.text}</p><footer className="mt-3 text-sm font-semibold">{r.author}</footer></blockquote>)}</div>
+    {reviewProfileUrl&&<a href={reviewProfileUrl} className="underline mt-6 inline-block" rel="noopener">Se alle anmeldelser</a>}</div></section>}
+export function Areas(){return <section className="max-w-site mx-auto px-4 py-16"><h2 className="text-3xl font-bold mb-6">Din elektriker i København, Storkøbenhavn og Nordsjælland</h2>
+  <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-2">{locations.map(l=><li key={l} className="border-b border-[var(--border)] py-1">{l}</li>)}</ul>
+  <p className="text-sm mt-4 opacity-80">Kontakt os, hvis din adresse ikke står på listen.</p></section>}
+const faq:[string,string][]=[['Hvad koster en elektriker i København?','Prisen afhænger af opgavens art og omfang. Beskriv din opgave i formularen, så vender vi tilbage med et tilbud.'],['Tilbyder I akut elektriker døgnet rundt?','Ja, vi har døgnvagt 24/7. Ring på '+company.phoneShort+'.'],['Hvor hurtigt kan en elektriker komme?','Det afhænger af situationen og vores aktuelle kapacitet. Ring, så fortæller vi, hvad vi kan.'],['Hvad gør jeg, hvis mit HPFI-relæ slår fra?','Undlad at forsøge at reparere fejlen selv. Kontakt en autoriseret elinstallatør, som kan finde årsagen. Ved brandfare: ring 112.'],['Kan I udskifte min gamle eltavle?','Ja. Vi udskifter og moderniserer eltavler og udfører kontrol og afprøvning.'],['Udfører I elarbejde for boligforeninger?','Ja, både akutte opgaver og planlagt vedligeholdelse.'],['Kan I hjælpe med elinstallationer i forbindelse med renovering?','Ja, fra enkeltrum til komplette renoveringer.'],['Er Tech El-Service autoriseret?','Ja, autorisationsnr. '+company.auth+'.'],['Installerer I ladestandere til elbiler?','Ja, til private, virksomheder og boligforeninger.'],['Hvordan får jeg et tilbud?','Udfyld formularen, eller ring til os på '+company.phoneShort+'.']]
+export function FAQ(){return <section className="bg-[var(--bg-soft)]"><div className="max-w-3xl mx-auto px-4 py-16"><h2 className="text-3xl font-bold mb-6">Ofte stillede spørgsmål</h2>{faq.map(([q,a])=><details key={q} className="border-b border-[var(--border)] py-3"><summary className="cursor-pointer font-medium">{q}</summary><p className="mt-2">{a}</p></details>)}</div></section>}
+export function FinalCTA(){return <section className="bg-navy text-white text-center"><div className="max-w-site mx-auto px-4 py-16"><h2 className="text-3xl font-bold">Har du brug for en professionel elektriker?</h2><p className="mt-3">Kontakt Tech El-Service i dag, og lad os hjælpe dig med din næste elopgave.</p>
+  <div className="mt-6 flex flex-wrap gap-3 justify-center"><a href={company.phoneHref} className="btn btn-primary">Ring {company.phoneShort}</a><Link to="/kontakt#tilbud" className="btn btn-ghost">Få et tilbud</Link></div></div></section>}
+const logos=[['Brøndby Kommune','brondby-kommune.png'],['Herlev Kommune','herlev-kommune.png'],['DEAS','deas.webp'],['Alfa-Z A/S','alfa-z.webp'],['El-Team Sjælland ApS','el-team.webp'],['HEVA','heva.webp']]
+export function CustomerLogos(){const row=(dup:boolean)=>logos.map(([n,f])=><li key={f+dup} className={"px-8 py-2 flex items-center shrink-0"+(dup?" dup-item":"")} aria-hidden={dup||undefined}><img src={'/images/kunder/'+f} alt={dup?'':n+' – logo'} loading="lazy" className="h-20 w-auto max-w-[220px] object-contain"/></li>)
+  return <section className="max-w-site mx-auto px-4 py-16"><h2 className="text-3xl font-bold mb-8 text-center">Virksomheder og kunder, der har valgt os</h2>
+    <div className="marquee"><ul className="marquee-track">{row(false)}{row(true)}</ul></div></section>}

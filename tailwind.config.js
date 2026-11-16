@@ -1,0 +1,1 @@
+export default { content:['./index.html','./src/**/*.{ts,tsx}'], theme:{ extend:{ colors:{ brand:'var(--brand)', navy:'var(--navy)', accent:'var(--accent)', ink:'var(--ink)' }, maxWidth:{ site:'1280px' } } }, plugins:[] }
